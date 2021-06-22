@@ -10,4 +10,24 @@ $right-color: #e0ffff;
 $background: linear-gradient(to right top, #ebeb14, #ffb600, #ff7b3d, #ff3d6b, #eb1296);
 
 /* ------------$FONTS--------------- */
-$font-stack: sans-serif;
+
+@font-face {
+	font-family: 'Muli';
+	src: url('../assets/fonts/Muli.woff2') format('woff2'),
+		url('../assets/fonts/Muli.woff') format('woff');
+	font-weight: 500;
+	font-style: normal;
+}
+
+$font-stack: 'Muli', sans-serif;
+
+/* -----------$BREAKPOINTS---------- */
+$breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1400px
+);
+

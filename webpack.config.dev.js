@@ -1,6 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CopyPlugin = require ('copy-webpack-plugin')
 
 module.exports = {
     mode: 'development',
@@ -36,6 +37,37 @@ module.exports = {
                     'sass-loader'
                 ],
             },
+            {
+                //asset module
+                test: /\.png/,
+                type: 'asset/resource'
+            },
+            // url loader fonts
+            {
+                test:/\.(woff|woff2)$/,
+                use: {
+                    loader: 'url-loader',
+                    options: {
+                            // o le pasamos un bool [true o false]
+                            // habilita o deshabilita la transformacion en base64
+                            limit: 10000,
+                            // Especifica el tipo MIME con el que se alineará el archivo.
+                            // Los MIME Types (Multipurpose Internet Mail Extensions)
+                            // son la manera standard de mandar contenido a través de la red.
+                            mimetype: "application/font-woff",
+                            // nombre inicial del archivo + ext
+                            // puedes agragarle  [name]hola.[ext]
+                            // el output seria asi ubuntu-regularhola.woff
+                            name: "[name].[contenthash].[ext]",
+                            // directorio de salida
+                            outputPath: "./assets/fonts/",
+                            // directorio publico
+                            publicPath: "../assets/fonts/",
+                            // avisar explicitamente si es un modulo
+                            esModule: false
+                        }
+                    }
+                }
         ]
     },
     plugins: [
@@ -45,9 +77,15 @@ module.exports = {
         }),
         new MiniCssExtractPlugin({
             filename: 'assets/[name].[contenthash].css'
-        }
-
-        ),
+        }),
+        new CopyPlugin({
+            patterns: [
+                {   // la carpeta que voy a copiar
+                    from: path.resolve(__dirname, "src", "assets/images"),
+                    to: "assets/images" // la ruta donde van los archivos
+                }
+            ]
+        }),
 
     ],
     devServer: {
