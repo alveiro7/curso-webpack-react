@@ -1,9 +1,11 @@
 @forward  "reset";
+@use "variables" as var;
 
 .carousel-item {
     border-radius: 20px;
     overflow: hidden;
-    display: inline-block;
+    position: relative;
+    display: inline-flex;
     width: 200px;
     height: 250px;
     margin-right: 10px;
@@ -11,12 +13,10 @@
     cursor: pointer;
     transition: 450ms all;
     -webkit-transform-origin: center left;
-    transform-origin: center left;
-    &:hover{
-        opacity: 0.3;
-        -webkit-transform: scale(1.5);
-        transform: scale(1.5);
-        opacity: 1;
+            transform-origin: center left;
+    &:hover ~ .carousel-item{
+        -webkit-transform: translate3d(100px, 0, 0);
+                transform: translate3d(100px, 0, 0);
     }
     &__img {
         width: 200px;
@@ -24,11 +24,18 @@
         -o-object-fit: cover;
         object-fit: cover;
     }
+    &:hover .carousel-item__details{
+        opacity: 1;
+    }
     &__details {
         display: flex;
         align-items: flex-start;
         flex-direction: column;
         justify-content: flex-end;
+        background: linear-gradient(
+            to top,
+            rgba(0, 0, 0, 0.9) 0%,
+            rgba(0, 0, 0, 0) 100%);
         left: 0;
         top: 0;
         right: 0;
@@ -40,6 +47,16 @@
         position: absolute;
         &--img {
             width: 20px;
+        }
+        &--title{
+            color: var.$primary-color;
+            font-size: 1.8rem;
+            margin: 3px 0px;
+        }
+        &--subtitle{
+            color: var.$center-color;
+            font-size: 8px;
+            margin: 3px 0px;
         }
     }
 }

@@ -1,32 +1,52 @@
 import React from 'react'
+import Layout from '../components/Layout';
 import Header from '../components/Header'
 import Search from '../components/Search'
 import Categories from '../components/Categories'
 import Carousel from '../components/Carousel'
 import CarouselItem from '../components/CarourelItem'
 import Footer from '../components/Footer'
+import useTvShowsApi from '../hooks/useTvShowsApi'
 
-const API = 'https://pokeapi.co/api/v2/'
+import '../scss/App.scss'
 
-const App = () => (
-    <div className="App">
+
+const API = 'http://localhost:3000/initialState'
+
+const App = () => {
+    const videos = useTvShowsApi(API)
+
+    const renderList = (list = []) => {
+        return (
+        <>
+            {list.map((item) => (
+                <CarouselItem key={item.id} {...item} />
+            ))}
+        </>
+        )
+    }
+    return (
+    <Layout>
         <Header />
         <Search />
-        <Categories title="Mi Lista">
-            <Carousel>
-                <CarouselItem />
-                <CarouselItem />
-                
-            </Carousel>
-            <Carousel>
-                <CarouselItem />
-                <CarouselItem />
-                
-            </Carousel>
+        {videos.mylist && videos.mylist.length > 0 && (
+            <Categories title="Mi lista">
+                <Carousel>{renderList(videos.mylist)}</Carousel>
+            </Categories>
+        )}
+        {videos.trends && videos.trends.length > 0 && (
+        <Categories title="Tendencias">
+            <Carousel>{renderList(videos.trends)}</Carousel>
         </Categories>
-        <Carousel />
+        )}
+        {videos.originals && videos.originals.length > 0 && (
+            <Categories title="Originales">
+            <Carousel>{renderList(videos.originals)}</Carousel>
+        </Categories>
+        )}
         <Footer />
-    </div>
-)
+    </Layout>
+    )
+}
 
-export default App
+export default App;
