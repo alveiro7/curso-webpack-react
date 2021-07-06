@@ -8,12 +8,12 @@ import CarouselItem from '../components/CarourelItem'
 import Footer from '../components/Footer'
 import useTvShowsApi from '../hooks/useTvShowsApi'
 
-import '../scss/App.scss'
+import '../scss/Home.scss'
 
 
 const API = 'http://localhost:3000/initialState'
 
-const App = () => {
+const Home = () => {
     const videos = useTvShowsApi(API)
 
     const renderList = (list = []) => {
@@ -49,4 +49,4 @@ const App = () => {
     )
 }
 
-export default App;
+export default Home;
