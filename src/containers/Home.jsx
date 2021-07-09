@@ -1,11 +1,9 @@
 import React from 'react'
 import Layout from '../components/Layout';
-import Header from '../components/Header'
 import Search from '../components/Search'
 import Categories from '../components/Categories'
 import Carousel from '../components/Carousel'
 import CarouselItem from '../components/CarourelItem'
-import Footer from '../components/Footer'
 import useTvShowsApi from '../hooks/useTvShowsApi'
 
 import '../scss/Home.scss'
@@ -26,8 +24,7 @@ const Home = () => {
         )
     }
     return (
-    <Layout>
-        <Header />
+    <>
         <Search />
         {videos.mylist && videos.mylist.length > 0 && (
             <Categories title="Mi lista">
@@ -44,8 +41,7 @@ const Home = () => {
             <Carousel>{renderList(videos.originals)}</Carousel>
         </Categories>
         )}
-        <Footer />
-    </Layout>
+    </>
     )
 }
 
