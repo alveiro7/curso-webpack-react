@@ -1,5 +1,5 @@
 import React from 'react'
-import Layout from '../components/Layout';
+import { connect } from 'react-redux'
 import Search from '../components/Search'
 import Categories from '../components/Categories'
 import Carousel from '../components/Carousel'
@@ -9,10 +9,9 @@ import useTvShowsApi from '../hooks/useTvShowsApi'
 import '../scss/Home.scss'
 
 
-const API = 'http://localhost:3000/initialState'
 
-const Home = () => {
-    const videos = useTvShowsApi(API)
+
+const Home = ({myList, trends, originals}) => {
 
     const renderList = (list = []) => {
         return (
@@ -26,23 +25,28 @@ const Home = () => {
     return (
     <>
         <Search />
-        {videos.mylist && videos.mylist.length > 0 && (
             <Categories title="Mi lista">
-                <Carousel>{renderList(videos.mylist)}</Carousel>
+                <Carousel>{renderList(myList)}</Carousel>
             </Categories>
-        )}
-        {videos.trends && videos.trends.length > 0 && (
-        <Categories title="Tendencias">
-            <Carousel>{renderList(videos.trends)}</Carousel>
-        </Categories>
-        )}
-        {videos.originals && videos.originals.length > 0 && (
+
+            <Categories title="Tendencias">
+                <Carousel>{renderList(trends)}</Carousel>
+            </Categories>
+
             <Categories title="Originales">
-            <Carousel>{renderList(videos.originals)}</Carousel>
-        </Categories>
-        )}
+                <Carousel>{renderList(originals)}</Carousel>
+            </Categories>
+        )
     </>
     )
 }
 
-export default Home;
+const mapStateToProps = state => {
+    return {
+        myList: state.myList,
+        trends: state.trends,
+        originals: state.originals
+    }
+}
+
+export default connect(mapStateToProps, null) (Home)// connect(props, actions)
