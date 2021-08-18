@@ -1,5 +1,8 @@
+@forward  "reset";
+@use  "variables" as var;
+@use 'mixins' as mix;
 .register {
-    background-image: #181818;
+    background-image: var.$background;
     display: flex;
     align-items: center;
     flex-direction: column;

@@ -9,7 +9,7 @@ import '../scss/CarouselItem.scss'
 
 
 const CarouselItem = ( props ) => {
-    const { id, cover, title, year, contentRating, duration } = props
+    const { id, cover, title, year, contentRating, duration, isList} = props
     const handleSetFavorite = () => {
         props.setFavorite({
             id, cover, title, year, contentRating, duration
@@ -26,8 +26,19 @@ const CarouselItem = ( props ) => {
             <div className="carousel-item__details">
             <div>
                 <img src={playIcon} alt="" className="carousel-item__details--img" />
-                <img src={plusIcon} alt="" onClick={handleSetFavorite} className="carousel-item__details--img" />
-                <img src={removeIcon} alt="" onClick={() => handleDeleteFavorite(id)} className="carousel-item__details--img" />
+                {
+                    isList ?
+                        <img src={removeIcon}
+                            alt="delete"
+                            onClick={() => handleDeleteFavorite(id)}
+                            className="carousel-item__details--img"
+                        /> :
+                        <img src={plusIcon}
+                            alt="add"
+                            onClick={handleSetFavorite}
+                            className="carousel-item__details--img"
+                        />
+                }
             </div>
                 <p className="carousel-item__details--title">{title}</p>
                 <p className="carousel-item__details--subtitle">{`${year} ${contentRating} ${duration} `}</p>

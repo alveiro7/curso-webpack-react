@@ -11,13 +11,16 @@ import '../scss/Home.scss'
 
 
 
-const Home = ({myList, trends, originals}) => {
+const Home = ({myList, trends, originals, isList}) => {
 
     const renderList = (list = []) => {
         return (
         <>
             {list.map((item) => (
-                <CarouselItem key={item.id} {...item} />
+                <CarouselItem
+                    key={item.id}
+                    {...item}
+                    />
             ))}
         </>
         )
@@ -25,10 +28,21 @@ const Home = ({myList, trends, originals}) => {
     return (
     <>
         <Search />
+        {
+            myList.length > 0 &&
             <Categories title="Mi lista">
-                <Carousel>{renderList(myList)}</Carousel>
+                <Carousel>
+                    {
+                        myList.map(item => 
+                        <CarouselItem
+                            key={item.id}
+                            {...item}
+                            isList
+                        />)
+                    }
+                </Carousel>
             </Categories>
-
+        }
             <Categories title="Tendencias">
                 <Carousel>{renderList(trends)}</Carousel>
             </Categories>
