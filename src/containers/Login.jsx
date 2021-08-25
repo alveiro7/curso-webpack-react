@@ -74,7 +74,6 @@ const Login = props => {
 
 const mapDispatchToProps = {
 	loginRequest,
-
 }
 
 

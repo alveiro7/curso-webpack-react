@@ -48,11 +48,15 @@ const CarouselItem = ( props ) => {
 }
 
 CarouselItem.propTypes = {
+    id: PropTypes.number,
+    cover: PropTypes.string,
     title: PropTypes.string,
     year: PropTypes.number,
     contentRating: PropTypes.string,
     duration: PropTypes.number,
-    cover: PropTypes.string,
+    isList: PropTypes.bool,
+    setFavorite: PropTypes.func,
+    deleteFavorite: PropTypes.func
 }
 
 const mapDispatchToProps = {

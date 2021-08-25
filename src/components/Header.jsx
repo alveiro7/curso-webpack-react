@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import gravatar from '../utils/gravatar'
 import { logoutRequest } from '../actions'
+import PropTypes from 'prop-types';
 import '../scss/Header.scss'
 import logo from '../assets/images/logo-platzi-video-BW2.png'
 import userIcon from '../assets/icons/user-icon.png'
@@ -13,7 +14,7 @@ const Header = props => {
     const hasUser = Object.keys(user).length > 0
 
     const handleLogout = () => {
-        props.logoutRequest({})
+        props.logoutRequest({ })
     }
 
     return(
@@ -32,16 +33,22 @@ const Header = props => {
                 </figure>
                 <nav className= 'header__menu'>
                     <ul>
-                        {hasUser ?
-                            <li><a href="/">{user.name}</a></li>
-                            :
-                            null
-                        }
-                        {hasUser ?
-                            <li><a href="#logout" onClick={handleLogout}>Cerrar Sesión</a></li>
-                            :
-                            <li><Link to="/login">Iniciar Sesión</Link></li>
-                        }
+                        {hasUser ? (
+                            <>
+                                <li>
+                                    <a href="/">{user.name}</a>
+                                </li>
+                                <li>
+                                    <a href="#logout" onClick={handleLogout}>Cerrar Sesión</a>
+                                </li>
+                            </>
+                        )
+                        :
+                        (
+                            <li>
+                                <Link to="/login">Iniciar Sesión</Link>
+                            </li>
+                        )}
                     </ul>
                 </nav>
             </div>
@@ -57,6 +64,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
     logoutRequest
+}
+
+Header.propTypes = {
+    user: PropTypes.object.isRequired,
+    logoutRequest: PropTypes.func.isRequired
 }
 
 export default connect (mapStateToProps, mapDispatchToProps)(Header)
